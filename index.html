@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Vexel Bank — Login</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- TELA DE CARREGAMENTO -->
+    <div id="loading-screen" aria-hidden="true">
+      <div class="loader"></div>
+      <p>Carregando Vexel...</p>
+    </div>
+
+    <!-- BOLINHAS FLUTUANTES -->
+    <div class="bubbles" aria-hidden="true">
+      <span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span>
+    </div>
+
+    <!-- MAIN WRAPPER -->
+    <main class="wrap">
+      <!-- CARD PRINCIPAL (glassmorphism) -->
+      <section class="card">
+        <!-- LOGO SVG -->
+        <div class="brand">
+          <!-- Logo minimalista Vexel -->
+          <svg
+            class="logo"
+            viewBox="0 0 120 36"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+          >
+            <defs>
+              <linearGradient id="g1" x1="0%" x2="100%">
+                <stop offset="0%" stop-color="#8A2BE2" />
+                <stop offset="100%" stop-color="#C17BFF" />
+              </linearGradient>
+            </defs>
+            <g fill="none" fill-rule="evenodd">
+              <rect x="0" y="0" width="36" height="36" rx="8" fill="url(#g1)" />
+              <path
+                d="M10 9 L26 27 M26 9 L10 27"
+                stroke="#FFF"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+              <text
+                x="46"
+                y="24"
+                font-family="Poppins, sans-serif"
+                font-size="18"
+                fill="#EAD6FF"
+                font-weight="600"
+              >
+                Vexel
+              </text>
+            </g>
+          </svg>
+          <small class="tagline">Fintech — Futuro em suas mãos</small>
+        </div>
+
+        <!-- TABS: Login / Cadastro -->
+        <div class="tabs">
+          <button id="tab-login" class="tab active">Entrar</button>
+          <button id="tab-register" class="tab">Criar conta</button>
+        </div>
+
+        <!-- FORM CONTAINER -->
+        <div class="forms">
+          <!-- LOGIN -->
+          <form
+            id="form-login"
+            class="form active"
+            autocomplete="on"
+            novalidate
+          >
+            <label for="login-email">Email</label>
+            <input
+              id="login-email"
+              type="email"
+              placeholder="seu@exemplo.com"
+              required
+            />
+
+            <label for="login-password">Senha</label>
+            <div class="password-box">
+              <input
+                id="login-password"
+                type="password"
+                placeholder="••••••••"
+                required
+              />
+              <button
+                type="button"
+                class="toggle-pass"
+                data-target="login-password"
+                aria-label="Mostrar senha"
+              >
+                👁
+              </button>
+            </div>
+
+            <div class="actions">
+              <a href="#" class="forgot">Esqueceu a senha?</a>
+              <button type="submit" class="btn primary">Entrar</button>
+            </div>
+
+            <div class="alt">
+              <p>Ou entre com</p>
+              <div class="socials">
+                <button type="button" class="btn ghost">Google</button>
+                <button type="button" class="btn ghost">Apple</button>
+              </div>
+            </div>
+          </form>
+
+          <!-- CADASTRO -->
+          <form id="form-register" class="form" autocomplete="on" novalidate>
+            <label for="reg-name">Nome completo</label>
+            <input id="reg-name" type="text" placeholder="Seu nome" required />
+
+            <label for="reg-email">Email</label>
+            <input
+              id="reg-email"
+              type="email"
+              placeholder="seu@exemplo.com"
+              required
+            />
+
+            <label for="reg-password">Senha</label>
+            <div class="password-box">
+              <input
+                id="reg-password"
+                type="password"
+                placeholder="Crie uma senha"
+                required
+              />
+              <button
+                type="button"
+                class="toggle-pass"
+                data-target="reg-password"
+                aria-label="Mostrar senha"
+              >
+                👁
+              </button>
+            </div>
+
+            <label for="reg-cpf">CPF (opcional)</label>
+            <input id="reg-cpf" type="text" placeholder="000.000.000-00" />
+
+            <div class="actions">
+              <button type="submit" class="btn primary">Criar conta</button>
+            </div>
+
+            <p class="terms">
+              Ao criar a conta, você aceita os <a href="#">Termos de Uso</a> e a
+              <a href="#">Política de Privacidade</a>.
+            </p>
+          </form>
+        </div>
+
+        <!-- FOOTER DO CARD -->
+        <footer class="card-footer">
+          <small>Feito com ❤️ para investidores do futuro — Sr. Vellmont</small>
+        </footer>
+      </section>
+    </main>
+
+    <!-- SCRIPTS -->
+    <script>
+      // --- Loading screen ---
+      window.addEventListener("load", () => {
+        setTimeout(() => {
+          const L = document.getElementById("loading-screen");
+          L.style.opacity = "0";
+          setTimeout(() => (L.style.display = "none"), 400);
+        }, 900);
+      });
+
+      // --- Tabs (Login / Register) ---
+      const tabLogin = document.getElementById("tab-login");
+      const tabRegister = document.getElementById("tab-register");
+      const formLogin = document.getElementById("form-login");
+      const formRegister = document.getElementById("form-register");
+
+      function showLogin() {
+        tabLogin.classList.add("active");
+        tabRegister.classList.remove("active");
+        formLogin.classList.add("active");
+        formRegister.classList.remove("active");
+      }
+      function showRegister() {
+        tabLogin.classList.remove("active");
+        tabRegister.classList.add("active");
+        formLogin.classList.remove("active");
+        formRegister.classList.add("active");
+      }
+      tabLogin.addEventListener("click", showLogin);
+      tabRegister.addEventListener("click", showRegister);
+
+      // --- Toggle show/hide password (supports multiple) ---
+      document.querySelectorAll(".toggle-pass").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const targetId = btn.getAttribute("data-target");
+          const input = document.getElementById(targetId);
+          if (!input) return;
+          if (input.type === "password") {
+            input.type = "text";
+            btn.textContent = "🙈";
+            btn.setAttribute("aria-pressed", "true");
+          } else {
+            input.type = "password";
+            btn.textContent = "👁";
+            btn.setAttribute("aria-pressed", "false");
+          }
+        });
+      });
+
+      // --- Simple submit handlers (demo) ---
+      formLogin.addEventListener("submit", (e) => {
+        e.preventDefault();
+        // efeito simples de sucesso/erro (substitua por fetch real)
+        const btn = formLogin.querySelector(".btn.primary");
+        btn.classList.add("loading");
+        setTimeout(() => {
+          btn.classList.remove("loading");
+          btn.classList.add("success");
+          setTimeout(() => btn.classList.remove("success"), 1400);
+        }, 900);
+      });
+
+      formRegister.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const btn = formRegister.querySelector(".btn.primary");
+        btn.classList.add("loading");
+        setTimeout(() => {
+          btn.classList.remove("loading");
+          btn.classList.add("success");
+          setTimeout(() => btn.classList.remove("success"), 1400);
+        }, 1000);
+      });
+
+      // Accessibility: allow Enter on active form to submit (already default); small enhancement: focus first input
+      document.addEventListener("DOMContentLoaded", () => {
+        const activeForm = document.querySelector(".form.active");
+        if (activeForm) {
+          const first = activeForm.querySelector("input");
+          if (first) first.focus();
+        }
+      });
+    </script>
+  </body>
+</html>
